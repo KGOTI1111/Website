@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÈRE | Premium E-Commerce</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --accent: #c5a059; /* Luxury Gold */
+            --bg: #fdfdfd;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #777777;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .menu-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .menu-links li a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-links li a:hover {
+            color: var(--accent);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 18px;
+        }
+
+        .nav-icons i {
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-icons i:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- Categories Selector --- */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding: 0 5%;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* --- Product Grid --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 5% 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* --- Product Card (Aesthetic Hover Effects) --- */
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* The "Interested" Hover Effect */
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .product-info .price {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        /* --- Modal (Product Details) --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFade 0.4s ease;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 25px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-gallery {
+            padding: 20px;
+        }
+
+        .main-modal-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .thumb-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .thumb-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-details {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-details h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+        }
+
+        .modal-details .stats {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .modal-details .description {
+            line-height: 1.6;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .reviews-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        /* --- Aesthetic Buttons --- */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .btn-cart {
+            background: #eee;
+            color: var(--primary);
+        }
+
+        .btn-cart:hover {
+            background: #ddd;
+            transform: scale(1.05);
+        }
+
+        .btn-buy {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-buy:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+        }
+
+        .btn-wish {
+            width: 50px;
+            flex: none;
+            background: #fff;
+            border: 1px solid #ddd;
+        }
+
+        .btn-wish:hover {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 50px 5%;
+            text-align: center;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 850px) {
+            .modal-content {
+                grid-template-columns: 1fr;
+            }
+            .menu-links {
+                display: none; /* Hide menu on mobile for simplicity */
+            }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">LUMIÈRE.</div>
+        <ul class="menu-links">
+            <li><a href="#" onclick="filterProducts('all')">Shop</a></li>
+            <li><a href="#" onclick="alert('About Us Section')">About Us</a></li>
+            <li><a href="#" onclick="alert('Contact Us Section')">Contact Us</a></li>
+            <li><a href="#" onclick="alert('Inquiry Form')">Inquiry Here</a></li>
+        </ul>
+        <div class="nav-icons">
+            <i class="fas fa-search"></i>
+            <i class="far fa-heart" onclick="alert('Wishlist')"></i>
+            <i class="fas fa-shopping-bag" onclick="alert('Orders')"></i>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <p style="text-transform: uppercase; letter-spacing: 3px; font-weight: 600; font-size: 12px; margin-bottom: 10px;">New Collection 2024</p>
+        <h1>Define Your Elegance</h1>
+        <p>Luxury essentials for the modern connoisseur.</p>
+    </section>
+
+    <div class="category-filter">
+        <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+        <button class="filter-btn" onclick="filterProducts('Watch')">Watches</button>
+        <button class="filter-btn" onclick="filterProducts('Goggles')">Goggles</button>
+        <button class="filter-btn" onclick="filterProducts('Perfume')">Perfumes</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+        <!-- Products will be injected here by JavaScript -->
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-gallery">
+                <img src="" id="modalMainImg" class="main-modal-img">
+                <div class="thumb-row" id="modalThumbs">
+                    <!-- Thumbnails injected here -->
+                </div>
+            </div>
+            <div class="modal-details">
+                <h2 id="modalTitle">Product Name</h2>
+                <div class="stats">
+                    <span id="modalSales"><i class="fas fa-chart-line"></i> 500+ Sold last month</span>
+                    <span id="modalRating"><i class="fas fa-star" style="color: #f1c40f;"></i> 4.8 Reviews</span>
+                </div>
+                <div class="price" id="modalPrice">$0.00</div>
+                <p class="description" id="modalDesc">Product details go here. High quality materials and premium craftmanship.</p>
+                
+                <div class="reviews-box">
+                    <strong>Recent Review:</strong>
+                    <p id="modalReview">"Absolutely stunning quality, exceeded my expectations!" - Verified Buyer</p>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <button class="btn btn-wish"><i class="far fa-heart"></i></button>
+                    <button class="btn btn-buy"><i class="fas fa-bolt"></i> Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logo" style="color: white; margin-bottom: 20px;">LUMIÈRE.</div>
+        <p style="font-size: 14px; opacity: 0.7;">&copy; 2024 Lumière Luxury Boutique. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Product Data (5 for each: Watch, Goggles, Perfume)
+        const products = [
+            // WATCHES
+            { id: 1, name: "Chronos Gold Legacy", category: "Watch", price: 299, sales: "1.2k", rating: 4.9, img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500", desc: "Crafted with 18k gold plating and sapphire glass." },
+            { id: 2, name: "Midnight Stealth", category: "Watch", price: 150, sales: "850", rating: 4.7, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500", desc: "Matte black finish with Swiss movement." },
+            { id: 3, name: "Oceanic Diver", category: "Watch", price: 210, sales: "400", rating: 4.8, img: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=500", desc: "Waterproof up to 200m with luminous dial." },
+            { id: 4, name: "Silver Minimalist", category: "Watch", price: 120, sales: "2.1k", rating: 4.6, img: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500", desc: "Elegant and simple for the modern gentleman." },
+            { id: 5, name: "Grand Tourer", category: "Watch", price: 450, sales: "150", rating: 5.0, img: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=500", desc: "Limited edition mechanical masterpiece." },
+            
+            // GOGGLES
+            { id: 6, name: "Aviator Titanium", category: "Goggles", price: 180, sales: "3k", rating: 4.9, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500", desc: "Classic aviator design with polarized lenses." },
+            { id: 7, name: "Urban Wayfarer", category: "Goggles", price: 110, sales: "5k", rating: 4.5, img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500", desc: "Iconic shape for every street style." },
+            { id: 8, name: "Sport Cycle X", category: "Goggles", price: 95, sales: "1.1k", rating: 4.7, img: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=500", desc: "High performance glare reduction for athletes." },
+            { id: 9, name: "Retro Hex", category: "Goggles", price: 140, sales: "600", rating: 4.8, img: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=500", desc: "Geometric frames for a bold statement." },
+            { id: 10, name: "Night Vision Pro", category: "Goggles", price: 200, sales: "300", rating: 4.4, img: "https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=500", desc: "Advanced yellow lenses for low-light clarity." },
+
+            // PERFUMES
+            { id: 11, name: "Oud Royale", category: "Perfume", price: 250, sales: "900", rating: 5.0, img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=500", desc: "Deep woody notes with a hint of spicy vanilla." },
+            { id: 12, name: "Floral Mist", category: "Perfume", price: 85, sales: "4k", rating: 4.6, img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500", desc: "Fresh jasmine and rose petal essence." },
+            { id: 13, name: "Citrus Burst", category: "Perfume", price: 75, sales: "2.5k", rating: 4.3, img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500", desc: "Zesty orange and bergamot morning fragrance." },
+            { id: 14, name: "Amber Night", category: "Perfume", price: 190, sales: "1.3k", rating: 4.8, img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=500", desc: "Sensual amber and leather evening wear." },
+            { id: 15, name: "Pure Musk", category: "Perfume", price: 130, sales: "2k", rating: 4.7, img: "https://images.unsplash.com/photo-1588405748373-122b2321bc31?w=500", desc: "Clean and long-lasting white musk base." }
+        ];
+
+        // Load Products
+        function displayProducts(filter = 'all') {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            filtered.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card" onclick="openModal(${p.id})">
+                        <img src="${p.img}" alt="${p.name}" class="product-img">
+                        <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <div class="price">$${p.price}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Filter Logic
+        function filterProducts(category) {
+            displayProducts(category);
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Modal Logic
+        function openModal(id) {
+            const p = products.find(prod => prod.id === id);
+            document.getElementById('modalTitle').innerText = p.name;
+            document.getElementById('modalPrice').innerText = `$${p.price}`;
+            document.getElementById('modalDesc').innerText = p.desc;
+            document.getElementById('modalSales').innerHTML = `<i class="fas fa-chart-line"></i> ${p.sales}+ Sold last month`;
+            document.getElementById('modalRating').innerHTML = `<i class="fas fa-star" style="color: #f1c40f;"></i> ${p.rating} Reviews`;
+            
+            const mainImg = document.getElementById('modalMainImg');
+            mainImg.src = p.img;
+
+            // Generate 3 random thumbnails for simulation
+            const thumbs = document.getElementById('modalThumbs');
+            thumbs.innerHTML = '';
+            for(let i=0; i<3; i++) {
+                thumbs.innerHTML += `<img src="${p.img}" class="thumb-img" onclick="document.getElementById('modalMainImg').src='${p.img}'">`;
+            }
+
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) closeModal();
+        }
+
+        // Init
+        displayProducts();
+    </script>
+</body>
+</html>
