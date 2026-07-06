@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trendy Store  | Premium E-Commerce</title>
+    <title>LUMIÈRE | Premium E-Commerce</title>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -11,13 +11,13 @@
     
     <style>
         :root {
-            --primary: #1a1a1a;
-            --accent: #c5a059; /* Luxury Gold */
-            --bg: #fdfdfd;
+            --primary: #121212;
+            --accent: #b89047; /* Luxury Premium Gold */
+            --bg: #fbfbfd;
             --card-bg: #ffffff;
-            --text-main: #333333;
-            --text-muted: #777777;
-            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --text-main: #222222;
+            --text-muted: #666666;
+            --shadow: 0 10px 30px rgba(0,0,0,0.04);
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
@@ -34,10 +34,11 @@
             overflow-x: hidden;
         }
 
-        /* --- Navigation --- */
+        /* --- Navigation Bar --- */
         nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 20px 5%;
             display: flex;
             justify-content: space-between;
@@ -45,15 +46,21 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             cursor: pointer;
+            text-decoration: none;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--accent);
         }
 
         .menu-links {
@@ -67,10 +74,10 @@
             text-decoration: none;
             color: var(--text-main);
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             transition: var(--transition);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .menu-links li a:hover {
@@ -81,11 +88,13 @@
             display: flex;
             gap: 20px;
             font-size: 18px;
+            align-items: center;
         }
 
         .nav-icons i {
             cursor: pointer;
             transition: var(--transition);
+            position: relative;
         }
 
         .nav-icons i:hover {
@@ -93,217 +102,323 @@
             transform: translateY(-2px);
         }
 
-        /* --- Hero Section --- */
+        /* --- Hero Billboard --- */
         .hero {
-            height: 400px;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070') center/cover;
+            height: 380px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070') center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        .hero p {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 600;
+            font-size: 11px;
+            margin-bottom: 15px;
+            color: var(--accent);
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 10px;
+            font-weight: 700;
         }
 
-        /* --- Categories Selector --- */
+        /* */
+        /* --- Categories Selector Bar --- */
         .category-filter {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 40px;
             padding: 0 5%;
+            flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 12px 30px;
-            border: 1px solid #ddd;
+            padding: 12px 28px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
             background: white;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
         .filter-btn.active, .filter-btn:hover {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        /* --- Product Grid --- */
+        /* --- Product Layout Grid --- */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 30px;
-            padding: 0 5% 50px;
+            padding: 0 5% 60px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* --- Product Card (Aesthetic Hover Effects) --- */
+        /* --- Product Card (Premium Hover Dynamics) --- */
         .product-card {
             background: var(--card-bg);
-            border-radius: 15px;
+            border-radius: 18px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
             cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.03);
         }
 
-        /* The "Interested" Hover Effect */
+        /* The "Interested" Hover Zoom & Slide Animation */
         .product-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: rgba(184, 144, 71, 0.2);
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            height: 340px;
+            overflow: hidden;
+            position: relative;
         }
 
         .product-img {
             width: 100%;
-            height: 320px;
+            height: 100%;
             object-fit: cover;
-            transition: transform 0.8s ease;
+            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .product-card:hover .product-img {
-            transform: scale(1.1);
+            transform: scale(1.08);
+        }
+
+        .badge-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .product-info {
-            padding: 20px;
+            padding: 24px;
             text-align: center;
         }
 
         .product-info h3 {
-            font-size: 18px;
+            font-size: 17px;
             margin-bottom: 8px;
             font-weight: 600;
+            color: #111;
         }
 
         .product-info .price {
             color: var(--accent);
             font-weight: 800;
-            font-size: 20px;
+            font-size: 19px;
+            letter-spacing: -0.5px;
         }
 
-        /* --- Modal (Product Details) --- */
+        /* */
+        /* --- Modal Overlay Container --- */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none; /* Hidden by default */
+            background: rgba(0, 0, 0, 0.6);
+            display: none; 
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 20px;
         }
 
         .modal-content {
             background: white;
-            width: 90%;
-            max-width: 1000px;
+            width: 100%;
+            max-width: 950px;
             max-height: 90vh;
-            border-radius: 20px;
+            border-radius: 24px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            overflow-y: auto;
+            grid-template-columns: 1.1fr 0.9fr;
+            overflow: hidden;
             position: relative;
-            animation: modalFade 0.4s ease;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            animation: modalOpening 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        @keyframes modalFade {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes modalOpening {
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .close-modal {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 25px;
+            font-size: 22px;
             cursor: pointer;
             z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: var(--primary);
+            color: white;
         }
 
         .modal-gallery {
-            padding: 20px;
+            padding: 30px;
+            background: #fafafb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .main-modal-img {
             width: 100%;
-            height: 400px;
+            height: 380px;
             object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            transition: var(--transition);
         }
 
         .thumb-row {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            justify-content: center;
         }
 
         .thumb-img {
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             object-fit: cover;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .thumb-img:hover, .thumb-img.active {
+            border-color: var(--accent);
+            transform: scale(1.05);
         }
 
         .modal-details {
             padding: 40px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
+            overflow-y: auto;
         }
 
         .modal-details h2 {
             font-family: 'Playfair Display', serif;
             font-size: 28px;
+            line-height: 1.2;
+            color: #111;
         }
 
         .modal-details .stats {
             display: flex;
+            flex-wrap: wrap;
             gap: 15px;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             font-weight: 600;
         }
 
-        .modal-details .description {
-            line-height: 1.6;
-            color: #555;
-            font-size: 15px;
+        .modal-details .stats span {
+            background: #f1f2f4;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .reviews-box {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 10px;
+        .modal-details .stats i {
+            color: var(--accent);
+        }
+
+        .modal-details .price {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 26px;
+            margin: 5px 0;
+        }
+
+        .modal-details .description {
+            line-height: 1.6;
+            color: #444;
             font-size: 14px;
         }
 
-        /* --- Aesthetic Buttons --- */
+        .reviews-box {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .reviews-box strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #222;
+        }
+
+        /* */
+        /* --- Premium Buttons --- */
         .btn-group {
             display: flex;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .btn {
             flex: 1;
             padding: 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -312,18 +427,18 @@
             gap: 8px;
             transition: var(--transition);
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 1px;
         }
 
         .btn-cart {
-            background: #eee;
+            background: #f0f0f2;
             color: var(--primary);
         }
 
         .btn-cart:hover {
-            background: #ddd;
-            transform: scale(1.05);
+            background: #e1e2e6;
+            transform: translateY(-2px);
         }
 
         .btn-buy {
@@ -333,138 +448,444 @@
 
         .btn-buy:hover {
             background: var(--accent);
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(184, 144, 71, 0.25);
         }
 
         .btn-wish {
             width: 50px;
             flex: none;
             background: #fff;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(0,0,0,0.08);
+            color: #555;
         }
 
         .btn-wish:hover {
             color: #e74c3c;
             border-color: #e74c3c;
+            transform: translateY(-2px);
         }
 
-        /* --- Footer --- */
+        /* --- Footer Section --- */
         footer {
             background: var(--primary);
             color: white;
-            padding: 50px 5%;
+            padding: 60px 5% 40px;
             text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* --- Responsive --- */
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        footer p {
+            font-size: 12px;
+            opacity: 0.6;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Custom Notification Box --- */
+        .custom-alert {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #121212;
+            color: white;
+            padding: 16px 28px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            border-left: 4px solid var(--accent);
+            animation: slideInUp 0.4s ease;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* --- Responsive Adaptation --- */
         @media (max-width: 850px) {
             .modal-content {
                 grid-template-columns: 1fr;
+                max-height: 95vh;
+            }
+            .modal-gallery {
+                padding: 20px;
+            }
+            .main-modal-img {
+                height: 260px;
+            }
+            .modal-details {
+                padding: 24px;
             }
             .menu-links {
-                display: none; /* Hide menu on mobile for simplicity */
+                display: none; /* Collapses menu links for responsive spacing */
             }
-            .hero h1 { font-size: 2rem; }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- -->
+    <!-- Navigation Strip -->
     <nav>
-        <div class="logo">Trendy Store </div>
+        <a href="#" class="logo" onclick="filterProducts('all')">LUMIÈRE<span>.</span></a>
         <ul class="menu-links">
             <li><a href="#" onclick="filterProducts('all')">Shop</a></li>
-            <li><a href="#" onclick="alert('About Us Section')">About Us</a></li>
-            <li><a href="#" onclick="alert('Contact Us Section')">Contact Us</a></li>
-            <li><a href="#" onclick="alert('Inquiry Form')">Inquiry Here</a></li>
+            <li><a href="#" onclick="showAlert('Lumière Maison: Authenticity guaranteed since 2018.')">About Us</a></li>
+            <li><a href="#" onclick="showAlert('Concierge Desk: contact@lumiere.in')">Contact Us</a></li>
+            <li><a href="#" onclick="showAlert('Direct line setup for elite requests. Sending to concierge...')">Inquiry Here</a></li>
         </ul>
         <div class="nav-icons">
-            <i class="fas fa-search"></i>
-            <i class="far fa-heart" onclick="alert('Wishlist')"></i>
-            <i class="fas fa-shopping-bag" onclick="alert('Orders')"></i>
+            <i class="fas fa-search" onclick="showAlert('Search bar activated')"></i>
+            <i class="far fa-heart" onclick="showAlert('Bespoke Wishlist loading...')"></i>
+            <i class="fas fa-shopping-bag" onclick="showAlert('Your Orders Vault is empty')"></i>
         </div>
     </nav>
 
+    <!-- Visual Billboard / Hero -->
     <section class="hero">
-        <p style="text-transform: uppercase; letter-spacing: 3px; font-weight: 600; font-size: 12px; margin-bottom: 10px;">New Collection 2024</p>
-        <h1>Define Your Elegance</h1>
-        <p>Luxury essentials for the modern connoisseur.</p>
+        <p>Prestige Collections</p>
+        <h1>Crafted For Elegance</h1>
     </section>
 
+    <!-- Subcategories filter navigation -->
     <div class="category-filter">
-        <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+        <button class="filter-btn active" onclick="filterProducts('all')">All Offerings</button>
         <button class="filter-btn" onclick="filterProducts('Watch')">Watches</button>
         <button class="filter-btn" onclick="filterProducts('Goggles')">Goggles</button>
         <button class="filter-btn" onclick="filterProducts('Perfume')">Perfumes</button>
     </div>
 
+    <!-- Product Display Area -->
     <div class="product-grid" id="productGrid">
-        <!-- Products will be injected here by JavaScript -->
+        <!-- Javascript dynamic rendering -->
     </div>
 
-    <!-- Product Detail Modal -->
+    <!-- Product Detail Modal (Dynamic Switcher integrated) -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <div class="modal-gallery">
                 <img src="" id="modalMainImg" class="main-modal-img">
                 <div class="thumb-row" id="modalThumbs">
-                    <!-- Thumbnails injected here -->
+                    <!-- Dynamic Thumbnails injected -->
                 </div>
             </div>
             <div class="modal-details">
                 <h2 id="modalTitle">Product Name</h2>
                 <div class="stats">
-                    <span id="modalSales"><i class="fas fa-chart-line"></i> 500+ Sold last month</span>
-                    <span id="modalRating"><i class="fas fa-star" style="color: #f1c40f;"></i> 4.8 Reviews</span>
+                    <span id="modalSales"><i class="fas fa-chart-line"></i> 500+ Sold</span>
+                    <span id="modalRating"><i class="fas fa-star"></i> 4.8 Reviews</span>
                 </div>
-                <div class="price" id="modalPrice">₹0.00</div>
-                <p class="description" id="modalDesc">Product details go here. High quality materials and premium craftmanship.</p>
+                <div class="price" id="modalPrice">₹0</div>
+                <p class="description" id="modalDesc">Product description placeholder</p>
                 
                 <div class="reviews-box">
-                    <strong>Recent Review:</strong>
-                    <p id="modalReview">"Absolutely stunning quality, exceeded my expectations!" - Verified Buyer</p>
+                    <strong>Elite Client Review:</strong>
+                    <p id="modalReview">"Absolutely breathtaking. Exquisite luxury!"</p>
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <button class="btn btn-wish"><i class="far fa-heart"></i></button>
-                    <button class="btn btn-buy"><i class="fas fa-bolt"></i> Buy Now</button>
+                    <button class="btn btn-cart" onclick="triggerAction('Cart')"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <button class="btn btn-wish" onclick="triggerAction('Wishlist')"><i class="far fa-heart"></i></button>
+                    <button class="btn btn-buy" onclick="triggerAction('Purchase')"><i class="fas fa-bolt"></i> Buy Now</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Customized Alert Container -->
+    <div class="custom-alert" id="customAlert">
+        <i class="fas fa-info-circle" style="color: var(--accent);"></i>
+        <span id="alertMsg">Message goes here</span>
+    </div>
+
     <footer>
-        <div class="logo" style="color: white; margin-bottom: 20px;">Trendy Store </div>
-        <p style="font-size: 14px; opacity: 0.7;">&copy; 2024 Trendy Store  Luxury Boutique. All Rights Reserved.</p>
+        <div class="footer-logo">LUMIÈRE<span>.</span></div>
+        <p>&copy; 2026 Lumière Luxury Boutique. Premium distribution. All Rights Reserved.</p>
     </footer>
 
+    <!-- -->
     <script>
-        // Product Data (5 for each: Watch, Goggles, Perfume)
+        // Highly Curated 15 Product Database (5 Watches, 5 Goggles, 5 Perfumes)
+        // Prices have been updated to premium Indian Rupee values with proper localization.
         const products = [
             // WATCHES
-            { id: 1, name: "Chronos Gold Legacy", category: "Watch", price: 299, sales: "1.2k", rating: 4.9, img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500", desc: "Crafted with 18k gold plating and sapphire glass." },
-            { id: 2, name: "Midnight Stealth", category: "Watch", price: 150, sales: "850", rating: 4.7, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500", desc: "Matte black finish with Swiss movement." },
-            { id: 3, name: "Oceanic Diver", category: "Watch", price: 210, sales: "400", rating: 4.8, img: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=500", desc: "Waterproof up to 200m with luminous dial." },
-            { id: 4, name: "Silver Minimalist", category: "Watch", price: 120, sales: "2.1k", rating: 4.6, img: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500", desc: "Elegant and simple for the modern gentleman." },
+            { 
+                id: 1, 
+                name: "Chronos Gold Legacy", 
+                category: "Watch", 
+                price: 24900, 
+                sales: "1,200", 
+                rating: "4.9 (124 reviews)", 
+                img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600", 
+                desc: "Crafted meticulously with solid gold plating, detailed chronograph metrics, and scratch-resistant sapphire glass on an alligator pattern strap.",
+                review: '"A classic timepiece that commands respect. Exceptionally premium gold sheen." - Vikram S.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600",
+                    "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600",
+                    "https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=600"
+                ]
+            },
+            { 
+                id: 2, 
+                name: "Midnight Stealth Edition", 
+                category: "Watch", 
+                price: 12500, 
+                sales: "850", 
+                rating: "4.7 (85 reviews)", 
+                img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600", 
+                desc: "Uncompromising matte-carbon structure featuring tactical rubber components, sleek date tracking, and military grade durability metrics.",
+                review: '"Brilliant styling! The stealth-black matte casing feels modern yet tactical." - Arjun K.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
+                    "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=600",
+                    "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600"
+                ]
+            },
+            { 
+                id: 3, 
+                name: "Oceanic Blue Diver", 
+                category: "Watch", 
+                price: 17900, 
+                sales: "430", 
+                rating: "4.8 (64 reviews)", 
+                img: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600", 
+                desc: "Engineered for deep-sea exploration, featuring glowing structural dials, professional unidirectional bezels, and 200m water resistance.",
+                review: '"Solid underwater utility coupled with high-end premium design." - Captain Raghav',
+                gallery: [
+                    "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600",
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
+                    "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600"
+                ]
+            },
+            { 
+                id: 4, 
+                name: "Silver Minimalist Mesh", 
+                category: "Watch", 
+                price: 9999, 
+                sales: "2,100", 
+                rating: "4.6 (210 reviews)", 
+                img: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600", 
+                desc: "Elegance structured in simplicity. Built using an ultra-lightweight stainless steel mesh band with a security magnetic locking mechanism.",
+                review: '"Perfect corporate accessory. Brilliantly thin casing and very comfortable." - Priya R.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600",
+                    "https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=600",
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
+                ]
+            },
+            { 
+                id: 5, 
+                name: "Mechanical Skeleton Gold", 
+                category: "Watch", 
+                price: 38500, 
+                sales: "150", 
+                rating: "5.0 (320 reviews)", 
+                img: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=600", 
+                desc: "An exhibition caseback masterpiece. Double-sided mineral glass showcases complex self-winding kinetic rotor components and synthetic ruby jewels.",
+                review: '"A literal artwork on my wrist. The kinetic motion is deeply mesmerizing." - Siddharath M.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=600",
+                    "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600",
+                    "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600"
+                ]
+            },
             
             // GOGGLES
-            { id: 6, name: "Aviator Titanium", category: "Goggles", price: 180, sales: "3k", rating: 4.9, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500", desc: "Classic aviator design with polarized lenses." },
-            { id: 7, name: "Urban Wayfarer", category: "Goggles", price: 110, sales: "5k", rating: 4.5, img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500", desc: "Iconic shape for every street style." },
-            { id: 8, name: "Sport Cycle X", category: "Goggles", price: 95, sales: "1.1k", rating: 4.7, img: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=500", desc: "High performance glare reduction for athletes." },
-            { id: 9, name: "Retro Hex", category: "Goggles", price: 140, sales: "600", rating: 4.8, img: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=500", desc: "Geometric frames for a bold statement." },
-            { id: 10, name: "Night Vision Pro", category: "Goggles", price: 200, sales: "300", rating: 4.4, img: "https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=500", desc: "Advanced yellow lenses for low-light clarity." },
+            { 
+                id: 6, 
+                name: "Aviator Titanium Gold", 
+                category: "Goggles", 
+                price: 14999, 
+                sales: "3,000", 
+                rating: "4.9 (410 reviews)", 
+                img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600", 
+                desc: "An eternal shape constructed with 18k gold-plated frames and high-contrast polarization blocking 100% UV glare.",
+                review: '"The frame is impossibly light. Polarization makes outdoor environments super vivid." - Rohan J.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
+                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
+                    "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600"
+                ]
+            },
+            { 
+                id: 7, 
+                name: "Urban Tortoise Wayfarer", 
+                category: "Goggles", 
+                price: 8999, 
+                sales: "5,000", 
+                rating: "4.5 (180 reviews)", 
+                img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600", 
+                desc: "Hypoallergenic handcrafted acetate tortoise rims loaded with subtle gradient black transition lenses.",
+                review: '"Timeless and looks great with absolutely any outfit." - Kabir S.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
+                    "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
+                    "https://images.unsplash.com/photo-1625591339768-2940609b1c6e?w=600"
+                ]
+            },
+            { 
+                id: 8, 
+                name: "Glacial Sport Wrap-around", 
+                category: "Goggles", 
+                price: 7999, 
+                sales: "1,100", 
+                rating: "4.7 (340 reviews)", 
+                img: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600", 
+                desc: "Impact resistant wrap-around shield lenses loaded with anti-condensation capabilities and premium rubber grips.",
+                review: '"Perfect companion for cycling. Does not fog up even in high humidity." - Devendra P.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600",
+                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
+                    "https://images.unsplash.com/photo-1625591339768-2940609b1c6e?w=600"
+                ]
+            },
+            { 
+                id: 9, 
+                name: "Hexagonal Gold Retro", 
+                category: "Goggles", 
+                price: 11999, 
+                sales: "600", 
+                rating: "4.8 (95 reviews)", 
+                img: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600", 
+                desc: "Fine geometric styling highlighting thin wireframe elements and warm amber-toned lenses.",
+                review: '"Retro vibe is incredibly elegant. Highly recommended for sunny brunches." - Tanya S.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600",
+                    "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
+                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600"
+                ]
+            },
+            { 
+                id: 10, 
+                name: "Noir Glamour Oversized", 
+                category: "Goggles", 
+                price: 16999, 
+                sales: "300", 
+                rating: "4.4 (112 reviews)", 
+                img: "https://images.unsplash.com/photo-1625591339768-2940609b1c6e?w=600", 
+                desc: "Bold structure conveying maximum visual mystery. Built with thick premium black acetate and dark gradient shades.",
+                review: '"Very dramatic and stylish! Beautifully balanced weight on the nose bridge." - Elena R.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1625591339768-2940609b1c6e?w=600",
+                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
+                    "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600"
+                ]
+            },
 
             // PERFUMES
-            { id: 11, name: "Oud Royale", category: "Perfume", price: 250, sales: "900", rating: 5.0, img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=500", desc: "Deep woody notes with a hint of spicy vanilla." },
-            { id: 12, name: "Floral Mist", category: "Perfume", price: 85, sales: "4k", rating: 4.6, img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500", desc: "Fresh jasmine and rose petal essence." },
-            { id: 13, name: "Citrus Burst", category: "Perfume", price: 75, sales: "2.5k", rating: 4.3, img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500", desc: "Zesty orange and bergamot morning fragrance." },
-            { id: 14, name: "Amber Night", category: "Perfume", price: 190, sales: "1.3k", rating: 4.8, img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=500", desc: "Sensual amber and leather evening wear." },
+            { 
+                id: 11, 
+                name: "Oud Absolute Royal", 
+                category: "Perfume", 
+                price: 21500, 
+                sales: "900", 
+                rating: "5.0 (450 reviews)", 
+                img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600", 
+                desc: "A warm comforting embrace constructed using pure sustainable agarwood, deep leather accords, and dark clove warmth.",
+                review: '"Incredibly long projection. Stays on the skin for over 12 hours easily." - Zayd A.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
+                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600",
+                    "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600"
+                ]
+            },
+            { 
+                id: 12, 
+                name: "Blossom Jasmine Mist", 
+                category: "Perfume", 
+                price: 6999, 
+                sales: "4,000", 
+                rating: "4.6 (520 reviews)", 
+                img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600", 
+                desc: "Sparkling dew morning elements combined with authentic damask rose petals, citrus hints, and soft cashmere wood.",
+                review: '"Perfect daytime signature. Clean, light, and wonderfully floral." - Meera G.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600",
+                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
+                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600"
+                ]
+            },
+            { 
+                id: 13, 
+                name: "Citrus Bergamot Infusion", 
+                category: "Perfume", 
+                price: 5999, 
+                sales: "2,500", 
+                rating: "4.3 (280 reviews)", 
+                img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600", 
+                desc: "An energetic burst of fresh Sicilian bergamot, fresh organic mint, crushed sage, and dry Virginian cedarwood notes.",
+                review: '"Instantly refreshing. Uplifting bright citrus projection." - Tariq N.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600",
+                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
+                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600"
+                ]
+            },
+            { 
+                id: 14, 
+                name: "Amber Velvet Night", 
+                category: "Perfume", 
+                price: 15999, 
+                sales: "1,300", 
+                rating: "4.8 (980 reviews)", 
+                img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600", 
+                desc: "Highly seductive night-wear formulation highlighting dark roasted tonka beans, Royal amber resin, and rich sandalwood essence.",
+                review: '"Mysterious and intoxicating scent profile. Truly sophisticated." - Isha R.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600",
+                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
+                    "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600"
+                ]
+            },
+            { 
+                id: 15, 
+                name: "Pure Musk Sandalwood", 
+                category: "Perfume", 
+                price: 10999, 
+                sales: "2,000", 
+                rating: "4.7 (140 reviews)", 
+                img: "https://images.unsplash.com/photo-1588405748373-122b2321bc31?w=600", 
+                desc: "A clean comforting skin scent designed with premium Mysore sandalwood extract, white musk elements, and warm vetiver.",
+                review: '"Soft, clean, and smells incredibly soothing. Truly elegant." - Devendra G.',
+                gallery: [
+                    "https://images.unsplash.com/photo-1588405748373-122b2321bc31?w=600",
+                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
+                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600"
+                ]
+            }
         ];
 
-        // Load Products
+        // Format Indian Rupee currency format (e.g. ₹24,999)
+        function formatRupee(amount) {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Render dynamic product list
         function displayProducts(filter = 'all') {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
@@ -474,57 +895,102 @@
             filtered.forEach(p => {
                 grid.innerHTML += `
                     <div class="product-card" onclick="openModal(${p.id})">
-                        <img src="${p.img}" alt="${p.name}" class="product-img">
+                        <div class="product-img-wrapper">
+                            <span class="badge-category">${p.category}</span>
+                            <img src="${p.img}" alt="${p.name}" class="product-img" loading="lazy">
+                        </div>
                         <div class="product-info">
                             <h3>${p.name}</h3>
-                            <div class="price">$${p.price}</div>
+                            <div class="price">${formatRupee(p.price)}</div>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // Filter Logic
+        // Filter active toggler actions
         function filterProducts(category) {
             displayProducts(category);
             const btns = document.querySelectorAll('.filter-btn');
             btns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if(event) {
+                event.target.classList.add('active');
+            }
         }
 
-        // Modal Logic
+        // Modal rendering logic with gallery switch feature
+        let currentProduct = null;
         function openModal(id) {
-            const p = products.find(prod => prod.id === id);
-            document.getElementById('modalTitle').innerText = p.name;
-            document.getElementById('modalPrice').innerText = `$${p.price}`;
-            document.getElementById('modalDesc').innerText = p.desc;
-            document.getElementById('modalSales').innerHTML = `<i class="fas fa-chart-line"></i> ${p.sales}+ Sold last month`;
-            document.getElementById('modalRating').innerHTML = `<i class="fas fa-star" style="color: #f1c40f;"></i> ${p.rating} Reviews`;
+            currentProduct = products.find(prod => prod.id === id);
+            document.getElementById('modalTitle').innerText = currentProduct.name;
+            document.getElementById('modalPrice').innerText = formatRupee(currentProduct.price);
+            document.getElementById('modalDesc').innerText = currentProduct.desc;
+            document.getElementById('modalSales').innerHTML = `<i class="fas fa-chart-line"></i> ${currentProduct.sales} Sold Last Month`;
+            document.getElementById('modalRating').innerHTML = `<i class="fas fa-star"></i> ${currentProduct.rating}`;
+            document.getElementById('modalReview').innerHTML = currentProduct.review;
             
             const mainImg = document.getElementById('modalMainImg');
-            mainImg.src = p.img;
+            mainImg.src = currentProduct.img;
 
-            // Generate 3 random thumbnails for simulation
+            // Generate gallery thumbnails
             const thumbs = document.getElementById('modalThumbs');
             thumbs.innerHTML = '';
-            for(let i=0; i<3; i++) {
-                thumbs.innerHTML += `<img src="${p.img}" class="thumb-img" onclick="document.getElementById('modalMainImg').src='${p.img}'">`;
-            }
+            currentProduct.gallery.forEach((imgUrl, index) => {
+                const activeClass = index === 0 ? 'active' : '';
+                thumbs.innerHTML += `
+                    <img src="${imgUrl}" class="thumb-img ${activeClass}" 
+                         onclick="changeMainImage('${imgUrl}', this)">
+                `;
+            });
 
             document.getElementById('productModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+        }
+
+        // Image switcher inside the modal
+        function changeMainImage(url, element) {
+            document.getElementById('modalMainImg').src = url;
+            const thumbs = document.querySelectorAll('.thumb-img');
+            thumbs.forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
         }
 
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
         }
 
-        // Close modal when clicking outside content
+        // Close modal when clicking outside contents
         window.onclick = function(event) {
             const modal = document.getElementById('productModal');
             if (event.target == modal) closeModal();
         }
 
-        // Init
+        // Custom notification trigger
+        function showAlert(message) {
+            const alertBox = document.getElementById('customAlert');
+            document.getElementById('alertMsg').innerText = message;
+            alertBox.style.display = 'flex';
+            
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 3000);
+        }
+
+        // Trigger e-commerce button metrics with alert message
+        function triggerAction(actionType) {
+            if(!currentProduct) return;
+            if(actionType === 'Purchase') {
+                showAlert(`Processing premium transaction for ${currentProduct.name} at ${formatRupee(currentProduct.price)}.`);
+            } else if (actionType === 'Cart') {
+                showAlert(`Successfully added "${currentProduct.name}" to your cart.`);
+            } else {
+                showAlert(`"${currentProduct.name}" added to your custom Wishlist.`);
+            }
+            closeModal();
+        }
+
+        // Initialize application products
         displayProducts();
     </script>
 </body>
