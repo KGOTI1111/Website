@@ -794,16 +794,6 @@
         <span id="alertMsg">Message goes here</span>
     </div>
 
-    <section class="image-upload-section">
-        <h2>Upload your image</h2>
-        <p>Select a JPG, JPEG, or PNG image and it will be stored locally so it appears in the results below.</p>
-        <div class="image-upload-controls">
-            <input id="imageUploadInput" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" />
-            <button class="btn btn-buy" type="button" onclick="handleImageUpload()">Store image</button>
-        </div>
-        <div class="upload-preview" id="uploadPreview"></div>
-    </section>
-
     <footer>
         <div class="footer-logo">Trendy Store <span></span></div>
         <p>&copy; 2026 Trendy Store Luxury Boutique. Premium distribution. All Rights Reserved.</p>
@@ -811,62 +801,6 @@
 
     <!-- -->
     <script>
-        const IMAGE_STORAGE_KEY = 'trendyStoreUploadedImages';
-
-        function isAllowedImageFile(file) {
-            if (!file) return false;
-            const fileName = (file.name || '').toLowerCase();
-            const fileType = (file.type || '').toLowerCase();
-            return fileType === 'image/png' || fileType === 'image/jpeg' || fileType === 'image/jpg' || fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg');
-        }
-
-        function renderStoredImages() {
-            const preview = document.getElementById('uploadPreview');
-            const storedImages = JSON.parse(localStorage.getItem(IMAGE_STORAGE_KEY) || '[]');
-
-            if (!storedImages.length) {
-                preview.innerHTML = '<p class="empty-state">No images stored yet.</p>';
-                return;
-            }
-
-            preview.innerHTML = storedImages.map((item) => `
-                <div class="stored-image-card">
-                    <img src="${item.dataUrl}" alt="${item.name}">
-                    <span>${item.name}</span>
-                </div>
-            `).join('');
-        }
-
-        function handleImageUpload() {
-            const input = document.getElementById('imageUploadInput');
-            const file = input.files && input.files[0];
-
-            if (!file) {
-                showAlert('Please choose an image first.');
-                return;
-            }
-
-            if (!isAllowedImageFile(file)) {
-                showAlert('Only PNG and JPEG images are supported.');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                const storedImages = JSON.parse(localStorage.getItem(IMAGE_STORAGE_KEY) || '[]');
-                storedImages.unshift({
-                    name: file.name,
-                    dataUrl: event.target.result
-                });
-
-                localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(storedImages.slice(0, 6)));
-                renderStoredImages();
-                input.value = '';
-                showAlert('Image stored successfully.');
-            };
-            reader.readAsDataURL(file);
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('input[type="file"]').forEach((input) => {
                 const currentAccept = input.getAttribute('accept') || '';
