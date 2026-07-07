@@ -708,12 +708,12 @@
     <!-- -->
     <!-- Navigation Strip -->
     <nav>
-        <a href="index.html" class="logo">Trendy Store<span></span></a>
+        <a href="./index.html" class="logo">Trendy Store<span></span></a>
         <ul class="menu-links">
             <li><a href="#" onclick="filterProducts('all')">All Prodcuts</a></li>
-            <li><a href="About Us.html">About Us</a></li>
-            <li><a href="Contactus.html">Contact Us</a></li>
-            <li><a href="InquiryMenu.html">Inquiry Here</a></li>
+            <li><a href="./About%20Us.html">About Us</a></li>
+            <li><a href="./Contactus.html">Contact Us</a></li>
+            <li><a href="./InquiryMenu.html">Inquiry Here</a></li>
         </ul>
         <div class="nav-icons">
             <i class="fas fa-search" onclick="showAlert('Search bar activated')"></i>
@@ -804,17 +804,7 @@
     <!-- -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('input[type="file"]').forEach((input) => {
-                const currentAccept = input.getAttribute('accept') || '';
-                const allowedTypes = ['image/jpeg', 'image/png', '.jpg', '.jpeg', '.png'];
-                const missingTypes = allowedTypes.filter((type) => !currentAccept.split(',').some((item) => item.trim().toLowerCase() === type.toLowerCase()));
-
-                if (missingTypes.length) {
-                    input.setAttribute('accept', [currentAccept, ...missingTypes].filter(Boolean).join(','));
-                }
-            });
-
-            renderStoredImages();
+            displayProducts();
         });
 
         // Highly Curated 15 Product Database (5 Watches, 5 Goggles, 5 Perfumes)
@@ -1022,12 +1012,12 @@
 
         function resolveImageUrl(url) {
             if (!url) return fallbackImage;
-            if (/^https?:\/\//i.test(url)) return url;
-            if (url.startsWith('data:')) return url;
-            if (url.startsWith('/')) {
-                return `${window.location.origin}${url}`;
+            if (/^(https?:)?\/\//i.test(url) || url.startsWith('data:')) return url;
+            try {
+                return new URL(url, window.location.href).href;
+            } catch (error) {
+                return url;
             }
-            return url;
         }
 
         // Render dynamic product list
