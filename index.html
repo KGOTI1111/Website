@@ -284,6 +284,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: linear-gradient(135deg, #f6ebd7, #e9d9b8);
         }
 
         .product-card:hover .product-img {
@@ -398,6 +399,7 @@
             margin-bottom: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.03);
             transition: var(--transition);
+            background: linear-gradient(135deg, #f6ebd7, #e9d9b8);
         }
 
         .thumb-row {
@@ -1024,11 +1026,12 @@
             const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
             
             filtered.forEach(p => {
+                const imageSrc = p.img || 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';
                 grid.innerHTML += `
                     <div class="product-card" onclick="openModal(${p.id})">
                         <div class="product-img-wrapper">
                             <span class="badge-category">${p.category}</span>
-                            <img src="${p.img}" alt="${p.name}" class="product-img" loading="lazy">
+                            <img src="${imageSrc}" alt="${p.name}" class="product-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';">
                         </div>
                         <div class="product-info">
                             <h3>${p.name}</h3>
@@ -1062,7 +1065,11 @@
             document.getElementById('modalReview').innerHTML = currentProduct.review;
             
             const mainImg = document.getElementById('modalMainImg');
-            mainImg.src = currentProduct.img;
+            const fallbackImage = 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';
+            mainImg.src = currentProduct.img || fallbackImage;
+            mainImg.onerror = function() {
+                this.src = fallbackImage;
+            };
 
             // Generate gallery thumbnails
             const thumbs = document.getElementById('modalThumbs');
@@ -1070,8 +1077,8 @@
             currentProduct.gallery.forEach((imgUrl, index) => {
                 const activeClass = index === 0 ? 'active' : '';
                 thumbs.innerHTML += `
-                    <img src="${imgUrl}" class="thumb-img ${activeClass}" 
-                         onclick="changeMainImage('${imgUrl}', this)">
+                    <img src="${imgUrl || 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200'}" class="thumb-img ${activeClass}" 
+                         onclick="changeMainImage('${imgUrl || 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200'}', this)" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';">
                 `;
             });
 
