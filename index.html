@@ -1018,6 +1018,15 @@
             }).format(amount);
         }
 
+        const fallbackImage = 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';
+
+        function resolveImageUrl(url) {
+            if (!url) return fallbackImage;
+            if (/^https?:\/\//i.test(url)) return url;
+            const normalizedPath = url.startsWith('/') ? url : `/${url}`;
+            return `${window.location.origin}${normalizedPath}`;
+        }
+
         // Render dynamic product list
         function displayProducts(filter = 'all') {
             const grid = document.getElementById('productGrid');
@@ -1026,12 +1035,12 @@
             const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
             
             filtered.forEach(p => {
-                const imageSrc = p.img || 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';
+                const imageSrc = resolveImageUrl(p.img);
                 grid.innerHTML += `
                     <div class="product-card" onclick="openModal(${p.id})">
                         <div class="product-img-wrapper">
                             <span class="badge-category">${p.category}</span>
-                            <img src="${imageSrc}" alt="${p.name}" class="product-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';">
+                            <img src="${imageSrc}" alt="${p.name}" class="product-img" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImage}';">
                         </div>
                         <div class="product-info">
                             <h3>${p.name}</h3>
@@ -1065,8 +1074,7 @@
             document.getElementById('modalReview').innerHTML = currentProduct.review;
             
             const mainImg = document.getElementById('modalMainImg');
-            const fallbackImage = 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';
-            mainImg.src = currentProduct.img || fallbackImage;
+            mainImg.src = resolveImageUrl(currentProduct.img);
             mainImg.onerror = function() {
                 this.src = fallbackImage;
             };
@@ -1076,9 +1084,10 @@
             thumbs.innerHTML = '';
             currentProduct.gallery.forEach((imgUrl, index) => {
                 const activeClass = index === 0 ? 'active' : '';
+                const resolvedThumbUrl = resolveImageUrl(imgUrl);
                 thumbs.innerHTML += `
-                    <img src="${imgUrl || 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200'}" class="thumb-img ${activeClass}" 
-                         onclick="changeMainImage('${imgUrl || 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200'}', this)" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200';">
+                    <img src="${resolvedThumbUrl}" class="thumb-img ${activeClass}" 
+                         onclick="changeMainImage('${resolvedThumbUrl}', this)" onerror="this.onerror=null; this.src='${fallbackImage}';">
                 `;
             });
 
@@ -1088,7 +1097,7 @@
 
         // Image switcher inside the modal
         function changeMainImage(url, element) {
-            document.getElementById('modalMainImg').src = url;
+            document.getElementById('modalMainImg').src = resolveImageUrl(url);
             const thumbs = document.querySelectorAll('.thumb-img');
             thumbs.forEach(t => t.classList.remove('active'));
             element.classList.add('active');
