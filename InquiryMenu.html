@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inquiry Menu | Trendy Store</title>
+  <style>
+    :root {
+      --bg: #f5efe7;
+      --panel: #fffdfa;
+      --text: #2f241d;
+      --muted: #6f5f4d;
+      --accent: #b89047;
+      --accent-dark: #8f6628;
+      --border: #e8dccb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #efe3cf);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    .page-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 38px;
+      background: rgba(255, 253, 250, 0.96);
+      border-radius: 24px;
+      box-shadow: 0 20px 45px rgba(58, 35, 12, 0.12);
+      border: 1px solid rgba(184, 144, 71, 0.18);
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      color: var(--accent-dark);
+      margin-bottom: 12px;
+      font-size: 2.3rem;
+      letter-spacing: 0.6px;
+    }
+
+    p.lead {
+      margin-top: 0;
+      margin-bottom: 28px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 770px;
+    }
+
+    .inquiry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .panel-card,
+    .inquiry-form {
+      background: var(--panel);
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.04);
+    }
+
+    .panel-card h2,
+    .inquiry-form h2 {
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    .panel-card p,
+    .panel-card li {
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 12px 0;
+    }
+
+    .panel-card ul {
+      padding-left: 18px;
+      margin: 8px 0 0;
+    }
+
+    .inquiry-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .inquiry-form input,
+    .inquiry-form select,
+    .inquiry-form textarea {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 1rem;
+      color: var(--text);
+      background: #fff;
+    }
+
+    .inquiry-form textarea {
+      min-height: 170px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 26px;
+      border: none;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+      box-shadow: 0 12px 24px rgba(184, 144, 71, 0.15);
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 18, 15, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .popup-content {
+      background: rgba(255, 253, 250, 0.98);
+      border: 1px solid rgba(184, 144, 71, 0.24);
+      border-radius: 24px;
+      box-shadow: 0 25px 60px rgba(17, 15, 13, 0.18);
+      padding: 32px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .popup-content h2 {
+      margin: 0 0 14px;
+      font-size: 1.7rem;
+      letter-spacing: 0.5px;
+      color: var(--accent-dark);
+    }
+
+    .popup-content p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .popup-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 26px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .popup-close:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      color: var(--accent-dark);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 760px) {
+      .inquiry-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <h1>Inquiry Menu</h1>
+    <p class="lead">Select the right inquiry type and send us the details. Our Trendy Store support team will review your request and respond as quickly as possible.</p>
+
+    <div class="inquiry-grid">
+      <div class="panel-card">
+        <h2>Need help with</h2>
+        <ul>
+          <li>Product information and sizing guidance</li>
+          <li>Order tracking and delivery updates</li>
+          <li>Returns, exchanges, and refunds</li>
+          <li>Custom order requests and special offers</li>
+          <li>General account or payment questions</li>
+        </ul>
+
+        <p>Use the form to choose an inquiry category and tell us what you need. Providing a few details up front helps us route your request faster.</p>
+      </div>
+
+      <form class="inquiry-form" id="inquiryForm" onsubmit="handleSubmitInquiry(event)">
+        <h2>Send an Inquiry</h2>
+
+        <label for="inquiry-name">Name</label>
+        <input id="inquiry-name" type="text" placeholder="Your full name" required autocomplete="name" />
+
+        <label for="inquiry-email">Email</label>
+        <input id="inquiry-email" type="email" placeholder="you@example.com" required autocomplete="email"
+          pattern="^[a-zA-Z0-9](?!.*\.\.)[a-zA-Z0-9._%+-]*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$"
+          title="Enter a valid email, such as user@gmail.com or user@example.co.in" />
+
+        <label for="inquiry-phone">Phone</label>
+        <input id="inquiry-phone" type="tel" placeholder="+91 90162 69623" pattern="^\+?[0-9\s\-]{10,18}$" required title="Enter a valid phone number with 10 to 18 digits, optional +." />
+
+        <label for="inquiry-type">Inquiry Type</label>
+        <select id="inquiry-type" required>
+          <option value="">Select inquiry type</option>
+          <option value="product">Product Information</option>
+          <option value="order">Order Status</option>
+          <option value="returns">Returns & Refunds</option>
+          <option value="custom">Custom Requests</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label for="inquiry-message">Message</label>
+        <textarea id="inquiry-message" placeholder="Tell us how we can assist you" required></textarea>
+
+        <button class="btn-submit" type="submit">Submit Inquiry</button>
+      </form>
+    </div>
+
+    <a class="back-link" href="index.html">← Back to Home</a>
+  </div>
+
+  <div class="popup-overlay" id="inquiryPopup">
+    <div class="popup-content">
+      <h2>Inquiry Sent</h2>
+      <p>Thanks for reaching out. Your inquiry has been received and our team will reply soon.</p>
+      <button class="popup-close" type="button" onclick="closeInquiryPopup()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    function handleSubmitInquiry(event) {
+      event.preventDefault();
+
+      const form = document.getElementById('inquiryForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const inquiryPopup = document.getElementById('inquiryPopup');
+      inquiryPopup.style.display = 'flex';
+
+      form.reset();
+    }
+
+    function closeInquiryPopup() {
+      const inquiryPopup = document.getElementById('inquiryPopup');
+      inquiryPopup.style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type="file"]').forEach((input) => {
+        const currentAccept = input.getAttribute('accept') || '';
+        const allowedTypes = ['image/jpeg', 'image/png', '.jpg', '.jpeg', '.png'];
+        const missingTypes = allowedTypes.filter((type) => !currentAccept.split(',').some((item) => item.trim().toLowerCase() === type.toLowerCase()));
+
+        if (missingTypes.length) {
+          input.setAttribute('accept', [currentAccept, ...missingTypes].filter(Boolean).join(','));
+        }
+      });
+    });
+  </script>
+</body>
+</html>

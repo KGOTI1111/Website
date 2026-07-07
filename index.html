@@ -104,16 +104,33 @@
 
         /* --- Hero Billboard --- */
         .hero {
-            height: 380px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070') center/cover;
+            min-height: 460px;
+            background: linear-gradient(135deg, #f8efe2 0%, #fefcf8 50%, #f3ebdf 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: var(--primary);
             text-align: center;
             margin-bottom: 40px;
-            padding: 20px;
+            padding: 36px 20px 42px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(184, 144, 71, 0.14), transparent 32%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin-bottom: 24px;
         }
 
         .hero p {
@@ -130,6 +147,68 @@
             font-size: 3.5rem;
             margin-bottom: 10px;
             font-weight: 700;
+        }
+
+        .hero-slider {
+            position: relative;
+            width: min(860px, 92%);
+            height: 280px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(18, 18, 18, 0.12);
+            background: #fff;
+            border: 1px solid rgba(184, 144, 71, 0.2);
+            z-index: 1;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(1.03);
+            transition: opacity 1s ease, transform 1s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            z-index: 1;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-slide .slide-label {
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            background: rgba(255,255,255,0.95);
+            color: var(--primary);
+            padding: 9px 14px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            border: 1px solid rgba(18, 18, 18, 0.1);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(18, 18, 18, 0.12);
+        }
+
+        .hero-slide .slide-label:hover,
+        .hero-slide .slide-label.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }
 
         /* */
@@ -513,6 +592,79 @@
             animation: slideInUp 0.4s ease;
         }
 
+        .image-upload-section {
+            max-width: 1200px;
+            margin: 0 auto 48px;
+            padding: 24px 28px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .image-upload-section h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .image-upload-section p {
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+
+        .image-upload-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .image-upload-controls input[type="file"] {
+            flex: 1;
+            min-width: 220px;
+            padding: 10px 12px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .upload-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        .stored-image-card {
+            background: #fcfcfc;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .stored-image-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .stored-image-card span {
+            display: block;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: var(--text-main);
+            word-break: break-word;
+        }
+
+        .empty-state {
+            color: var(--text-muted);
+            font-size: 14px;
+            padding: 8px 0;
+        }
+
         @keyframes slideInUp {
             from { transform: translateY(40px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -536,8 +688,15 @@
             .menu-links {
                 display: none; /* Collapses menu links for responsive spacing */
             }
+            .hero {
+                min-height: auto;
+                padding: 28px 16px 32px;
+            }
             .hero h1 {
                 font-size: 2.2rem;
+            }
+            .hero-slider {
+                height: 240px;
             }
         }
     </style>
@@ -547,12 +706,12 @@
     <!-- -->
     <!-- Navigation Strip -->
     <nav>
-        <a href="#" class="logo" onclick="filterProducts('all')">Trendy Store<span>.</span></a>
+        <a href="index.html" class="logo">Trendy Store<span></span></a>
         <ul class="menu-links">
-            <li><a href="#" onclick="filterProducts('all')">Shop</a></li>
-            <li><a href="#" onclick="showAlert('Trendy Store Maison: Authenticity guaranteed since 2018.')">About Us</a></li>
-            <li><a href="#" onclick="showAlert('Concierge Desk: contact@Trendy Store.in')">Contact Us</a></li>
-            <li><a href="#" onclick="showAlert('Direct line setup for elite requests. Sending to concierge...')">Inquiry Here</a></li>
+            <li><a href="#" onclick="filterProducts('all')">All Prodcuts</a></li>
+            <li><a href="About Us.html">About Us</a></li>
+            <li><a href="Contactus.html">Contact Us</a></li>
+            <li><a href="InquiryMenu.html">Inquiry Here</a></li>
         </ul>
         <div class="nav-icons">
             <i class="fas fa-search" onclick="showAlert('Search bar activated')"></i>
@@ -563,16 +722,32 @@
 
     <!-- Visual Billboard / Hero -->
     <section class="hero">
-        <p>Prestige Collections</p>
-        <h1>Crafted For Elegance</h1>
+        <div class="hero-content">
+            <p>Prestige Collections</p>
+            <h1>Crafted For Elegance</h1>
+        </div>
+        <div class="hero-slider" id="heroSlider">
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1200" alt="Luxury watch" onclick="goToCategory('Watch')">
+                <button class="slide-label" type="button" data-category="Watch" onclick="goToCategory(this.dataset.category)">Watch</button>
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1200" alt="Luxury goggles" onclick="goToCategory('Goggles')">
+                <button class="slide-label" type="button" data-category="Goggles" onclick="goToCategory(this.dataset.category)">Goggles</button>
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=1200" alt="Luxury perfume" onclick="goToCategory('Perfume')">
+                <button class="slide-label" type="button" data-category="Perfume" onclick="goToCategory(this.dataset.category)">Perfume</button>
+            </div>
+        </div>
     </section>
 
     <!-- Subcategories filter navigation -->
     <div class="category-filter">
-        <button class="filter-btn active" onclick="filterProducts('all')">All Offerings</button>
-        <button class="filter-btn" onclick="filterProducts('Watch')">Watches</button>
-        <button class="filter-btn" onclick="filterProducts('Goggles')">Goggles</button>
-        <button class="filter-btn" onclick="filterProducts('Perfume')">Perfumes</button>
+        <button class="filter-btn active" data-category="all" onclick="filterProducts('all')">All Products</button>
+        <button class="filter-btn" data-category="Watch" onclick="filterProducts('Watch')">Watches</button>
+        <button class="filter-btn" data-category="Goggles" onclick="filterProducts('Goggles')">Goggles</button>
+        <button class="filter-btn" data-category="Perfume" onclick="filterProducts('Perfume')">Perfumes</button>
     </div>
 
     <!-- Product Display Area -->
@@ -619,145 +794,217 @@
         <span id="alertMsg">Message goes here</span>
     </div>
 
+    <section class="image-upload-section">
+        <h2>Upload your image</h2>
+        <p>Select a JPG, JPEG, or PNG image and it will be stored locally so it appears in the results below.</p>
+        <div class="image-upload-controls">
+            <input id="imageUploadInput" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" />
+            <button class="btn btn-buy" type="button" onclick="handleImageUpload()">Store image</button>
+        </div>
+        <div class="upload-preview" id="uploadPreview"></div>
+    </section>
+
     <footer>
-        <div class="footer-logo">Trendy Store <span>.</span></div>
+        <div class="footer-logo">Trendy Store <span></span></div>
         <p>&copy; 2026 Trendy Store Luxury Boutique. Premium distribution. All Rights Reserved.</p>
     </footer>
 
     <!-- -->
     <script>
+        const IMAGE_STORAGE_KEY = 'trendyStoreUploadedImages';
+
+        function isAllowedImageFile(file) {
+            if (!file) return false;
+            const fileName = (file.name || '').toLowerCase();
+            const fileType = (file.type || '').toLowerCase();
+            return fileType === 'image/png' || fileType === 'image/jpeg' || fileType === 'image/jpg' || fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg');
+        }
+
+        function renderStoredImages() {
+            const preview = document.getElementById('uploadPreview');
+            const storedImages = JSON.parse(localStorage.getItem(IMAGE_STORAGE_KEY) || '[]');
+
+            if (!storedImages.length) {
+                preview.innerHTML = '<p class="empty-state">No images stored yet.</p>';
+                return;
+            }
+
+            preview.innerHTML = storedImages.map((item) => `
+                <div class="stored-image-card">
+                    <img src="${item.dataUrl}" alt="${item.name}">
+                    <span>${item.name}</span>
+                </div>
+            `).join('');
+        }
+
+        function handleImageUpload() {
+            const input = document.getElementById('imageUploadInput');
+            const file = input.files && input.files[0];
+
+            if (!file) {
+                showAlert('Please choose an image first.');
+                return;
+            }
+
+            if (!isAllowedImageFile(file)) {
+                showAlert('Only PNG and JPEG images are supported.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const storedImages = JSON.parse(localStorage.getItem(IMAGE_STORAGE_KEY) || '[]');
+                storedImages.unshift({
+                    name: file.name,
+                    dataUrl: event.target.result
+                });
+
+                localStorage.setItem(IMAGE_STORAGE_KEY, JSON.stringify(storedImages.slice(0, 6)));
+                renderStoredImages();
+                input.value = '';
+                showAlert('Image stored successfully.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input[type="file"]').forEach((input) => {
+                const currentAccept = input.getAttribute('accept') || '';
+                const allowedTypes = ['image/jpeg', 'image/png', '.jpg', '.jpeg', '.png'];
+                const missingTypes = allowedTypes.filter((type) => !currentAccept.split(',').some((item) => item.trim().toLowerCase() === type.toLowerCase()));
+
+                if (missingTypes.length) {
+                    input.setAttribute('accept', [currentAccept, ...missingTypes].filter(Boolean).join(','));
+                }
+            });
+
+            renderStoredImages();
+        });
+
         // Highly Curated 15 Product Database (5 Watches, 5 Goggles, 5 Perfumes)
         // Prices have been updated to premium Indian Rupee values with proper localization.
         const products = [
             // WATCHES
             { 
                 id: 1, 
-                name: "Chronos Gold Legacy", 
+                name: "TAG Heuer", 
                 category: "Watch", 
                 price: 24900, 
                 sales: "1,200", 
                 rating: "4.9 (124 reviews)", 
-                img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600", 
+                img: "img/Watch/1/1.png", 
                 desc: "Crafted meticulously with solid gold plating, detailed chronograph metrics, and scratch-resistant sapphire glass on an alligator pattern strap.",
                 review: '"A classic timepiece that commands respect. Exceptionally premium gold sheen." - Vikram S.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600",
-                    "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600",
-                    "https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=600"
+                    "img/Watch/1/1.png"
                 ]
             },
             { 
                 id: 2, 
-                name: "Midnight Stealth Edition", 
+                name: "Rolex Submariner Green", 
                 category: "Watch", 
                 price: 12500, 
                 sales: "850", 
-                rating: "4.7 (85 reviews)", 
-                img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600", 
+                rating: "4.7 (85 reviews)",  
+                img: "img/Watch/2/2.png",
                 desc: "Uncompromising matte-carbon structure featuring tactical rubber components, sleek date tracking, and military grade durability metrics.",
                 review: '"Brilliant styling! The stealth-black matte casing feels modern yet tactical." - Arjun K.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
-                    "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=600",
-                    "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600"
+                    "img/Watch/2/2.png"
                 ]
             },
             { 
                 id: 3, 
-                name: "Oceanic Blue Diver", 
+                name: "Fossil Bowman", 
                 category: "Watch", 
                 price: 17900, 
                 sales: "430", 
                 rating: "4.8 (64 reviews)", 
-                img: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600", 
+                img: "img/Watch/3/1.png",
                 desc: "Engineered for deep-sea exploration, featuring glowing structural dials, professional unidirectional bezels, and 200m water resistance.",
                 review: '"Solid underwater utility coupled with high-end premium design." - Captain Raghav',
                 gallery: [
-                    "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600",
-                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
-                    "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600"
+                    "img/Watch/3/1.png"
                 ]
             },
             { 
                 id: 4, 
-                name: "Silver Minimalist Mesh", 
+                name: "Rolex Sky-Dweller", 
                 category: "Watch", 
                 price: 9999, 
                 sales: "2,100", 
                 rating: "4.6 (210 reviews)", 
-                img: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600", 
+                img: "img/Watch/4/1.png", 
                 desc: "Elegance structured in simplicity. Built using an ultra-lightweight stainless steel mesh band with a security magnetic locking mechanism.",
                 review: '"Perfect corporate accessory. Brilliantly thin casing and very comfortable." - Priya R.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600",
-                    "https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=600",
-                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
+                    "img/Watch/4/1.png"
                 ]
             },
             
             // GOGGLES
             { 
                 id: 6, 
-                name: "Aviator Titanium Gold", 
+                name: "RayBan Reverse Black Green 0502", 
                 category: "Goggles", 
                 price: 14999, 
                 sales: "3,000", 
                 rating: "4.9 (410 reviews)", 
-                img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600", 
+                img: "img/Goggle/1/1.jpeg", 
                 desc: "An eternal shape constructed with 18k gold-plated frames and high-contrast polarization blocking 100% UV glare.",
                 review: '"The frame is impossibly light. Polarization makes outdoor environments super vivid." - Rohan J.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
-                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
-                    "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600"
+                    "img/Goggle/1/1.jpeg",
+                    "img/Goggle/1/2.jpeg",
+                    "img/Goggle/1/3.jpeg"
                 ]
             },
             { 
                 id: 7, 
-                name: "Urban Tortoise Wayfarer", 
+                name: "Cartier Gold Blue Shaded 8070", 
                 category: "Goggles", 
                 price: 8999, 
                 sales: "5,000", 
                 rating: "4.5 (180 reviews)", 
-                img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600", 
+                img: "img/Goggle/2/1.jpeg", 
                 desc: "Hypoallergenic handcrafted acetate tortoise rims loaded with subtle gradient black transition lenses.",
                 review: '"Timeless and looks great with absolutely any outfit." - Kabir S.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
-                    "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
-                    "https://images.unsplash.com/photo-1625591339768-2940609b1c6e?w=600"
+                    "img/Goggle/2/1.jpeg",
+                    "img/Goggle/2/2.jpeg",
+                    "img/Goggle/2/3.jpeg"
                 ]
             },
             { 
                 id: 8, 
-                name: "Glacial Sport Wrap-around", 
+                name: "Cartier Silver Blue 1043 ", 
                 category: "Goggles", 
                 price: 7999, 
                 sales: "1,100", 
                 rating: "4.7 (340 reviews)", 
-                img: "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600", 
+                img: "img/Goggle/3/1.jpeg", 
                 desc: "Impact resistant wrap-around shield lenses loaded with anti-condensation capabilities and premium rubber grips.",
                 review: '"Perfect companion for cycling. Does not fog up even in high humidity." - Devendra P.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1577803645773-f96470509666?w=600",
-                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
-                    "https://images.unsplash.com/photo-1625591339768-2940609b1c6e?w=600"
+                    "img/Goggle/3/1.jpeg",
+                    "img/Goggle/3/2.jpeg",
+                    "img/Goggle/3/3.jpeg"
                 ]
             },
             { 
                 id: 9, 
-                name: "Hexagonal Gold Retro", 
+                name: "RayBan Tiger Black 0502", 
                 category: "Goggles", 
                 price: 11999, 
                 sales: "600", 
                 rating: "4.8 (95 reviews)", 
-                img: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600", 
+                img: "img/Goggle/4/1.jpeg", 
                 desc: "Fine geometric styling highlighting thin wireframe elements and warm amber-toned lenses.",
                 review: '"Retro vibe is incredibly elegant. Highly recommended for sunny brunches." - Tanya S.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=600",
-                    "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
-                    "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600"
+                    "img/Goggle/4/1.jpeg",
+                    "img/Goggle/4/2.jpeg",
+                    "img/Goggle/4/3.jpeg"
                 ]
             },
             // PERFUMES
@@ -768,13 +1015,13 @@
                 price: 21500, 
                 sales: "900", 
                 rating: "5.0 (450 reviews)", 
-                img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600", 
+                img: "img/Perfume/1/1.jpg", 
                 desc: "A warm comforting embrace constructed using pure sustainable agarwood, deep leather accords, and dark clove warmth.",
                 review: '"Incredibly long projection. Stays on the skin for over 12 hours easily." - Zayd A.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
-                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600",
-                    "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600"
+                    "img/Perfume/1/1.jpg",
+                    "img/Perfume/1/2.webp",
+                    "img/Perfume/1/3.webp"
                 ]
             },
             { 
@@ -784,13 +1031,13 @@
                 price: 6999, 
                 sales: "4,000", 
                 rating: "4.6 (520 reviews)", 
-                img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600", 
+                img: "img/Perfume/2/1.webp", 
                 desc: "Sparkling dew morning elements combined with authentic damask rose petals, citrus hints, and soft cashmere wood.",
                 review: '"Perfect daytime signature. Clean, light, and wonderfully floral." - Meera G.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600",
-                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
-                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600"
+                    "img/Perfume/2/1.webp",
+                    "img/Perfume/2/2.webp",
+                    "img/Perfume/2/3.webp"
                 ]
             },
             { 
@@ -800,13 +1047,12 @@
                 price: 5999, 
                 sales: "2,500", 
                 rating: "4.3 (280 reviews)", 
-                img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600", 
+                img: "img/Perfume/3/1.webp", 
                 desc: "An energetic burst of fresh Sicilian bergamot, fresh organic mint, crushed sage, and dry Virginian cedarwood notes.",
                 review: '"Instantly refreshing. Uplifting bright citrus projection." - Tariq N.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600",
-                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
-                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600"
+                    "img/Perfume/3/1.webp",
+                    "img/Perfume/3/2.webp"
                 ]
             },
             { 
@@ -816,13 +1062,13 @@
                 price: 15999, 
                 sales: "1,300", 
                 rating: "4.8 (980 reviews)", 
-                img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600", 
+                img: "img/Perfume/4/1.webp", 
                 desc: "Highly seductive night-wear formulation highlighting dark roasted tonka beans, Royal amber resin, and rich sandalwood essence.",
                 review: '"Mysterious and intoxicating scent profile. Truly sophisticated." - Isha R.',
                 gallery: [
-                    "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600",
-                    "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600",
-                    "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600"
+                    "img/Perfume/4/1.webp",
+                    "img/Perfume/4/2.webp",
+                    "img/Perfume/4/3.webp"
                 ]
             },
         ];
@@ -860,14 +1106,15 @@
         }
 
         // Filter active toggler actions
-        function filterProducts(category) {
-            displayProducts(category);
-            const btns = document.querySelectorAll('.filter-btn');
-            btns.forEach(btn => btn.classList.remove('active'));
-            if(event) {
-                event.target.classList.add('active');
-            }
-        }
+        const categoryMap = {
+            all: 'all',
+            Watch: 'Watch',
+            Watches: 'Watch',
+            Goggle: 'Goggles',
+            Goggles: 'Goggles',
+            Perfume: 'Perfume',
+            Perfumes: 'Perfume'
+        };
 
         // Modal rendering logic with gallery switch feature
         let currentProduct = null;
@@ -943,6 +1190,44 @@
 
         // Initialize application products
         displayProducts();
+
+        // Hero auto-slider
+        const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+        const heroButtons = Array.from(document.querySelectorAll('.hero-slide .slide-label'));
+        let heroIndex = 0;
+
+        function showHeroSlide(index) {
+            heroSlides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            heroButtons.forEach((btn) => {
+                btn.classList.toggle('active', btn.textContent.trim() === heroSlides[index].querySelector('.slide-label').textContent.trim());
+            });
+        }
+
+        function filterProducts(category) {
+            const normalizedCategory = categoryMap[category] || category;
+            displayProducts(normalizedCategory);
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.category === normalizedCategory));
+        }
+
+        function goToCategory(category) {
+            const normalizedCategory = categoryMap[category] || category;
+            const targetIndex = heroSlides.findIndex(slide => slide.querySelector('.slide-label').dataset.category === normalizedCategory);
+            if (targetIndex >= 0) {
+                heroIndex = targetIndex;
+                showHeroSlide(heroIndex);
+            }
+
+            filterProducts(normalizedCategory);
+            document.querySelector('.product-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        setInterval(() => {
+            heroIndex = (heroIndex + 1) % heroSlides.length;
+            showHeroSlide(heroIndex);
+        }, 2000);
     </script>
 </body>
 </html>

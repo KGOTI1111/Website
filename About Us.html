@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Trendy Store</title>
+  <style>
+    :root {
+      --bg: #f5efe7;
+      --panel: #fffdfa;
+      --text: #2f241d;
+      --muted: #6f5f4d;
+      --accent: #b89047;
+      --accent-dark: #8f6628;
+      --border: #e8dccb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #efe3cf);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 38px;
+      background: rgba(255, 253, 250, 0.94);
+      border-radius: 22px;
+      box-shadow: 0 20px 45px rgba(58, 35, 12, 0.12);
+      border: 1px solid rgba(184, 144, 71, 0.18);
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      color: var(--accent-dark);
+      margin-bottom: 15px;
+      font-size: 2.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-description {
+      font-size: 18px;
+      line-height: 1.9;
+      margin-bottom: 22px;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin: 28px 0;
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, #fff8eb, #f6ebd7);
+      padding: 18px 20px;
+      border-radius: 14px;
+      min-width: 180px;
+      text-align: center;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+      flex: 1;
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 24px;
+      color: var(--accent-dark);
+      margin-bottom: 6px;
+    }
+
+    .stat-box span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .company-details {
+      margin-top: 28px;
+      padding: 22px;
+      border-top: 1px solid var(--border);
+      background: #fcfaf6;
+      border-radius: 14px;
+    }
+
+    .company-details p {
+      margin: 10px 0;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .whatsapp-btn {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 12px 18px;
+      background: linear-gradient(135deg, #25D366, #1ea952);
+      color: white;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 22px;
+      color: var(--accent-dark);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>About Us</h1>
+    <p class="brand-description">
+      Trendy Store is a trusted name in fashion and lifestyle products, known for quality, style, and customer satisfaction. We are committed to delivering products that combine elegance, comfort, and everyday value for our customers.
+    </p>
+
+    <div class="stats">
+      <div class="stat-box">
+        <strong>6+ Years</strong>
+        <span>of selling products</span>
+      </div>
+      <div class="stat-box">
+        <strong>800+</strong>
+        <span>happy reviews</span>
+      </div>
+      <div class="stat-box">
+        <strong>2500+</strong>
+        <span>orders last year</span>
+      </div>
+    </div>
+
+    <div class="company-details">
+      <p><strong>Brand Name:</strong> Trendy Store</p>
+      <p><strong>Location:</strong> Surat, Gujarat</p>
+      <p><strong>Mobile No:</strong> +91 9016269623</p>
+      <a class="whatsapp-btn" href="https://wa.me/919016269623" target="_blank" rel="noopener noreferrer">💬 WhatsApp Us</a>
+    </div>
+
+    <a class="back-link" href="index.html">← Back to Home</a>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type="file"]').forEach((input) => {
+        const currentAccept = input.getAttribute('accept') || '';
+        const allowedTypes = ['image/jpeg', 'image/png', '.jpg', '.jpeg', '.png'];
+        const missingTypes = allowedTypes.filter((type) => !currentAccept.split(',').some((item) => item.trim().toLowerCase() === type.toLowerCase()));
+
+        if (missingTypes.length) {
+          input.setAttribute('accept', [currentAccept, ...missingTypes].filter(Boolean).join(','));
+        }
+      });
+    });
+  </script>
+</body>
+</html>
